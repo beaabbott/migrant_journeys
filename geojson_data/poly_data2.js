@@ -118,7 +118,68 @@ var polygonData2 = [{
                 ]
             }
         }]
+    },
+    {
+        "type": "FeatureCollection",
+        "name": "poly6_polydata",
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        },
+        "features": [{
+            "type": "Feature",
+            "properties": {
+                "id": null
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [26.2372398944, 39.5339767094],
+                            [26.4239836589, 39.5349059007],
+                            [26.4282004536, 39.2938300413],
+                            [26.2402518906, 39.2952286329],
+                            [26.2372398944, 39.5339767094]
+                        ]
+                    ]
+                ]
+            }
+        }]
+    },
+    {
+        "type": "FeatureCollection",
+        "name": "poly7_polydata",
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        },
+        "features": [{
+            "type": "Feature",
+            "properties": {
+                "id": null
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [26.0948526053, 38.2659106055],
+                            [26.3128050125, 38.2664744394],
+                            [26.3117278177, 38.3771828391],
+                            [26.0941344755, 38.3769013529],
+                            [26.0948526053, 38.2659106055]
+                        ]
+                    ]
+                ]
+            }
+        }]
     }
+
 
 
 

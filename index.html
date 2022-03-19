@@ -196,7 +196,7 @@
     <!-- Load a Leaflet plugin to provide geolocation. Load this after Leaflet JS.-->
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.72.2/src/L.Control.Locate.min.js"></script>
     <script src="geojson_data/poly_data2.js"></script>
-    <script src="images/poly1_image.jpg"></script>
+    
     <script>
         var options = {
             center: [37.6069, 26.9981],
@@ -245,7 +245,7 @@
                     return {
                         color: color,
                         weight: 3,
-                        opacity: .7,
+                        opacity: .4,
                         dashArray: "5, 5",
 
                     }
@@ -258,8 +258,8 @@
         var polygonTwo = polygonMaker(polygons[1], "blue")
         var polygonThree = polygonMaker(polygons[2], "green")
         var polygonFour = polygonMaker(polygons[3], "orange")
-        //var polygonFive = polygonMaker(polygons[4], "purple")
-        //var polygonSix = polygonMaker(polygons[6], "red")
+        var polygonFive = polygonMaker(polygons[4], "purple")
+        var polygonSix = polygonMaker(polygons[5], "gray")
 
 
         // CONTROL PANEL 
@@ -269,7 +269,8 @@
             "<b style='font-size:1.3em;font-family:quicksand;color:blue;text-shadow: 0px 0px 0px #333;'><br>POLY TWO</b>": polygonTwo,
             "<b style='font-size:1.3em;font-family:quicksand;color:green;text-shadow: 0px 0px 0px #333;'><br>POLY THREE</b>": polygonThree,
             "<b style='font-size:1.3em;font-family:quicksand;color:orange;text-shadow: 0px 0px 0px #333;'><br>POLY FOUR</b>": polygonFour,
-            //"<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive
+            "<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive, 
+            "<b style='font-size:1.3em;font-family:quicksand;color:gray;text-shadow: 0px 0px 0px #333;'><br>POLY SIX</b>": polygonSix
         }
 
         L.control.layers(null, sourcesLayers, {
