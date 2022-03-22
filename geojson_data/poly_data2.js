@@ -1,6 +1,6 @@
 var polygonData2 = [{
         "type": "FeatureCollection",
-        "name": "poly1_polydata",
+        "name": "poly1",
         "crs": {
             "type": "name",
             "properties": {
@@ -31,7 +31,7 @@ var polygonData2 = [{
     },
     {
         "type": "FeatureCollection",
-        "name": "poly2_polydata",
+        "name": "poly2",
         "crs": {
             "type": "name",
             "properties": {
@@ -61,7 +61,7 @@ var polygonData2 = [{
     },
     {
         "type": "FeatureCollection",
-        "name": "poly3_polydata",
+        "name": "poly3",
         "crs": {
             "type": "name",
             "properties": {
@@ -91,7 +91,7 @@ var polygonData2 = [{
     },
     {
         "type": "FeatureCollection",
-        "name": "poly4THISONE",
+        "name": "poly4",
         "crs": {
             "type": "name",
             "properties": {
@@ -121,7 +121,7 @@ var polygonData2 = [{
     },
     {
         "type": "FeatureCollection",
-        "name": "poly6_polydata",
+        "name": "poly5",
         "crs": {
             "type": "name",
             "properties": {
@@ -151,7 +151,7 @@ var polygonData2 = [{
     },
     {
         "type": "FeatureCollection",
-        "name": "poly7_polydata",
+        "name": "poly6",
         "crs": {
             "type": "name",
             "properties": {
@@ -178,7 +178,103 @@ var polygonData2 = [{
                 ]
             }
         }]
+    },
+
+    {
+        "type": "FeatureCollection",
+        "name": "poly7",
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        },
+        "features": [{
+            "type": "Feature",
+            "properties": {
+                "id": null
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [26.3331788892, 39.1499787789],
+                            [26.8459469113, 39.1499787789],
+                            [26.8400755217, 38.4146297999],
+                            [26.3292646295, 38.416163263],
+                            [26.3331788892, 39.1499787789]
+                        ]
+                    ]
+                ]
+            }
+        }]
+    },
+
+    {
+        "type": "FeatureCollection",
+        "name": "poly8",
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        },
+        "features": [{
+            "type": "Feature",
+            "properties": {
+                "id": null
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [27.2319610561, 37.1443435889],
+                            [27.569327565, 37.143236912],
+                            [27.5637742068, 36.6925902832],
+                            [27.2250193584, 36.6948167393],
+                            [27.2319610561, 37.1443435889]
+                        ]
+                    ]
+                ]
+            }
+        }]
+    },
+
+    {
+        "type": "FeatureCollection",
+        "name": "poly9",
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        },
+        "features": [{
+            "type": "Feature",
+            "properties": {
+                "id": null
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [27.4978215462, 37.1641453334],
+                            [28.2066042312, 37.168081361],
+                            [28.2140131094, 36.271351849],
+                            [27.4953519201, 36.2653784036],
+                            [27.4978215462, 37.1641453334]
+                        ]
+                    ]
+                ]
+            }
+        }]
     }
+
+
+
 
 
 

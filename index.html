@@ -26,8 +26,8 @@
         h1 {
             position: absolute;
             margin-top: 0;
-            top: 10px;
-            left: 15px;
+            top: 20px;
+            left: 30px;
             font-size: 1.4em;
             font-family: 'Quicksand', sans-serif;
             font-weight: 700;
@@ -61,7 +61,7 @@
             font-size: 1.3em;
             font-weight: 500;
             left: 30px;
-            width: 300px;
+            width: 450px;
             padding: 0 25px;
             /* Add styles to match Leaflet UI elements */
             background: rgba(256, 256, 256, .3);
@@ -196,11 +196,11 @@
     <!-- Load a Leaflet plugin to provide geolocation. Load this after Leaflet JS.-->
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.72.2/src/L.Control.Locate.min.js"></script>
     <script src="geojson_data/poly_data2.js"></script>
-    
+
     <script>
         var options = {
-            center: [37.6069, 26.9981],
-            zoom: 8.5,
+            center: [37.7028262,25.1490638],
+            zoom: 7.5,
             zoomControl: false
         }
         //console.log(routeData)
@@ -238,14 +238,23 @@
         var polygons = polygonData2
 
 
+        //THINGS I WANT TO DO: 
+        // (1) build a listener event so that when you clicks a polygon it 
+                // (A) recenters the map to that zoom in on that box (B) Fill the polygon with the image, and have the pop up appear
+        // (2) Have a recenter button on right hand side of page 
+        // (3) Have the lines of the polygon become solid when you mouse over (as to know which poly you are selecting)... not sure how to deal with overlapping polys...
+
+
+
         // DRAW THE POLYGONS
         var polygonMaker = function (data, color) {
             var layer = L.geoJson(data, {
                 style: function (feature) {
                     return {
                         color: color,
-                        weight: 3,
-                        opacity: .4,
+                        weight: 2,
+                        fillOpacity: .2,
+                        opacity: 1,
                         dashArray: "5, 5",
 
                     }
@@ -259,17 +268,20 @@
         var polygonThree = polygonMaker(polygons[2], "green")
         var polygonFour = polygonMaker(polygons[3], "orange")
         var polygonFive = polygonMaker(polygons[4], "purple")
-        var polygonSix = polygonMaker(polygons[5], "gray")
+        var polygonSix = polygonMaker(polygons[5], "black")
+        var polygonSeven = polygonMaker(polygons[6], "gray")
+        var polygonEight = polygonMaker(polygons[7], "yellow")
+        var polygonNine = polygonMaker(polygons[8], " #f8c143")
 
 
-        // CONTROL PANEL 
+        // BUILD CONTROL PANEL - I THINK I'LL END UP DELETING THIS BUT FOR NOW IT's USEFUL 
 
         var sourcesLayers = {
             "<b style='font-size:1.3em;font-family:quicksand;color:red;text-shadow: 0px 0px 0px #333;'><br>POLY ONE</b>": polygonOne,
             "<b style='font-size:1.3em;font-family:quicksand;color:blue;text-shadow: 0px 0px 0px #333;'><br>POLY TWO</b>": polygonTwo,
             "<b style='font-size:1.3em;font-family:quicksand;color:green;text-shadow: 0px 0px 0px #333;'><br>POLY THREE</b>": polygonThree,
             "<b style='font-size:1.3em;font-family:quicksand;color:orange;text-shadow: 0px 0px 0px #333;'><br>POLY FOUR</b>": polygonFour,
-            "<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive, 
+            "<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive,
             "<b style='font-size:1.3em;font-family:quicksand;color:gray;text-shadow: 0px 0px 0px #333;'><br>POLY SIX</b>": polygonSix
         }
 
@@ -284,10 +296,23 @@
         // var imagePoly1 = "images/poly1_image"
         // var imagePoly1Bounds = polygons[0].feature.geometry.coordinates 
 
-    
+
         // L.imageOverlay(imagePoly1, imagePoly1Bounds)
 
-        
+
+
+        // ZOOM IN CODE -- THIS WORKS, BUT PROBABLY I SHOULD ADD THIS TO THE SAME FUNCTION THAT FILLS THE IMAGE AND BUILDS THE POP UP -- IF NOT, I SHOULD JUST RUN ARGUMENTS THROUGH THIS FUNCTION
+        var zoomIn = polygonNine.on('click', function (e) {
+        	// sets the map's center lat/lon using the click event location and changes the zoom level
+        	map.setView(e.latlng, 10);
+        });
+
+        var zoomIn = polygonEight.on('click', function (e) {
+        	// sets the map's center lat/lon using the click event location and changes the zoom level
+        	map.setView(e.latlng, 9.5);
+        });
+
+
 
         // MOUSEOVER CHANGE PERIMETER DASH ARRAY AND ADD POP UP 
 
@@ -337,19 +362,6 @@
 
 
 
-        // things I want to be able to do: 
-        // (1) have the image pop up when the user clicks the polygon 
-        // (2) have the label appear when the user clicks the polygon (right now it is mouseover)
-        // (3) maybe there is someway to make the pop up only appear outside of the polygon 
-
-
-
-
-
-
-
-
-
         //BASIC FUNCTION FORMAT - HAS TO RETURN SOMETHING 
 
         //  var polygoneMaker = function (data) {
@@ -357,6 +369,9 @@
 
         //         return layer
         //     }
+
+
+
 
 
 
@@ -535,9 +550,7 @@
         // });
 
 
-        // // listen for a click event on the map
-        // // when the user clicks on one of the markers, recenter the map on that marker and zoom in a couple of levels
-        // // WOW ! It works 
+
         // var zoomIn = myStops.on('click', function (e) {
         // 	// sets the map's center lat/lon using the click event location and changes the zoom level
         // 	map.setView(e.latlng, 18);
