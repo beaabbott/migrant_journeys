@@ -73,15 +73,15 @@
 
         #toggle {
             position: absolute;
-            top: 12px;
+            top: 15px;
             right: 55px;
-            padding: 5px;
-            /* Add styles to match Leaflet UI elements */
+            padding: 15px 32px;
             background: rgba(255, 255, 255, 1);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
             border: 1px solid #ddd;
             border-radius: 3px;
             z-index: 800;
+            font-size: 20px;
         }
 
         #toggle:hover {
@@ -180,7 +180,7 @@
 
     <div id='map'></div>
 
-    <button id="toggle">Hide</button>
+    <button id="toggle">Reset</button>
 
     <section id="about" class="show">
         <h2>Migrant Journeys</h2>
@@ -199,7 +199,7 @@
 
     <script>
         var options = {
-            center: [37.7028262,25.1490638],
+            center: [37.7028262, 25.1490638],
             zoom: 7.5,
             zoomControl: false
         }
@@ -240,78 +240,231 @@
 
         //THINGS I WANT TO DO: 
         // (1) build a listener event so that when you clicks a polygon it 
-                // (A) recenters the map to that zoom in on that box (B) Fill the polygon with the image, and have the pop up appear
+        // (A) recenters the map to that zoom in on that box (B) Fill the polygon with the image, and have the pop up appear
         // (2) Have a recenter button on right hand side of page 
         // (3) Have the lines of the polygon become solid when you mouse over (as to know which poly you are selecting)... not sure how to deal with overlapping polys...
 
-
+        // construct fit bounds, event listener, when you click it, pass bounds array from get bounds method 
 
         // DRAW THE POLYGONS
-        var polygonMaker = function (data, color) {
-            var layer = L.geoJson(data, {
-                style: function (feature) {
-                    return {
-                        color: color,
-                        weight: 2,
-                        fillOpacity: .2,
-                        opacity: 1,
-                        dashArray: "5, 5",
+        // var polygonMaker = function (data, color) {
+        //     var layer = L.geoJson(data, {
+        //         style: function (feature) {
+        //             return {
+        //                 color: color,
+        //                 weight: 2,
+        //                 fillOpacity: 0,
+        //                 opacity: 1,
+        //                 dashArray: "5, 5",
 
-                    }
-                }
-            }).addTo(map);
-            return layer
-        }
+        //             }
+        //         }
+        //     }).addTo(map);
+        //     return layer
+        // }
 
-        var polygonOne = polygonMaker(polygons[0], "red")
-        var polygonTwo = polygonMaker(polygons[1], "blue")
-        var polygonThree = polygonMaker(polygons[2], "green")
-        var polygonFour = polygonMaker(polygons[3], "orange")
-        var polygonFive = polygonMaker(polygons[4], "purple")
-        var polygonSix = polygonMaker(polygons[5], "black")
-        var polygonSeven = polygonMaker(polygons[6], "gray")
-        var polygonEight = polygonMaker(polygons[7], "yellow")
-        var polygonNine = polygonMaker(polygons[8], " #f8c143")
+        // var polygonOne = polygonMaker(polygons[0], "red")
+        // var polygonTwo = polygonMaker(polygons[1], "blue")
+        // var polygonThree = polygonMaker(polygons[2], "green")
+        // var polygonFour = polygonMaker(polygons[3], "orange")
+        // var polygonFive = polygonMaker(polygons[4], "purple")
+        // var polygonSix = polygonMaker(polygons[5], "black")
+        // var polygonSeven = polygonMaker(polygons[6], "gray")
+        // var polygonEight = polygonMaker(polygons[7], "yellow")
+        // var polygonNine = polygonMaker(polygons[8], " #f8c143")
 
 
         // BUILD CONTROL PANEL - I THINK I'LL END UP DELETING THIS BUT FOR NOW IT's USEFUL 
 
-        var sourcesLayers = {
-            "<b style='font-size:1.3em;font-family:quicksand;color:red;text-shadow: 0px 0px 0px #333;'><br>POLY ONE</b>": polygonOne,
-            "<b style='font-size:1.3em;font-family:quicksand;color:blue;text-shadow: 0px 0px 0px #333;'><br>POLY TWO</b>": polygonTwo,
-            "<b style='font-size:1.3em;font-family:quicksand;color:green;text-shadow: 0px 0px 0px #333;'><br>POLY THREE</b>": polygonThree,
-            "<b style='font-size:1.3em;font-family:quicksand;color:orange;text-shadow: 0px 0px 0px #333;'><br>POLY FOUR</b>": polygonFour,
-            "<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive,
-            "<b style='font-size:1.3em;font-family:quicksand;color:gray;text-shadow: 0px 0px 0px #333;'><br>POLY SIX</b>": polygonSix
-        }
+        // var sourcesLayers = {
+        //     "<b style='font-size:1.3em;font-family:quicksand;color:red;text-shadow: 0px 0px 0px #333;'><br>POLY ONE</b>": polygonOne,
+        //     "<b style='font-size:1.3em;font-family:quicksand;color:blue;text-shadow: 0px 0px 0px #333;'><br>POLY TWO</b>": polygonTwo,
+        //     "<b style='font-size:1.3em;font-family:quicksand;color:green;text-shadow: 0px 0px 0px #333;'><br>POLY THREE</b>": polygonThree,
+        //     "<b style='font-size:1.3em;font-family:quicksand;color:orange;text-shadow: 0px 0px 0px #333;'><br>POLY FOUR</b>": polygonFour,
+        //     "<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive,
+        //     "<b style='font-size:1.3em;font-family:quicksand;color:gray;text-shadow: 0px 0px 0px #333;'><br>POLY SIX</b>": polygonSix
+        // }
 
-        L.control.layers(null, sourcesLayers, {
-            collapsed: false
-        }).addTo(map);
+        // L.control.layers(null, sourcesLayers, {
+        //     collapsed: false
+        // }).addTo(map);
 
 
         // IMAGE OVERLAY - okay so i can do this, but i need to figure out how to save an image as a variable, and how to define the bounds in coordinates
         //then i'm going to have to figure out how to make it so the image appears when you click the polygon... and the popup is also associated with this click
 
-        // var imagePoly1 = "images/poly1_image"
-        // var imagePoly1Bounds = polygons[0].feature.geometry.coordinates 
 
 
-        // L.imageOverlay(imagePoly1, imagePoly1Bounds)
+        //on each feature - (use l.geojson) - add pop up, zoom to it, turn on image overlay
+        // add map and remove - look at documentation - you add image overlay and not add it to the map 
+
+
+
+
 
 
 
         // ZOOM IN CODE -- THIS WORKS, BUT PROBABLY I SHOULD ADD THIS TO THE SAME FUNCTION THAT FILLS THE IMAGE AND BUILDS THE POP UP -- IF NOT, I SHOULD JUST RUN ARGUMENTS THROUGH THIS FUNCTION
-        var zoomIn = polygonNine.on('click', function (e) {
-        	// sets the map's center lat/lon using the click event location and changes the zoom level
-        	map.setView(e.latlng, 10);
-        });
+        // var zoomIn = polygonNine.on('click', function (e) {
+        // 	// sets the map's center lat/lon using the click event location and changes the zoom level
+        // 	map.setView(e.latlng, 10);
+        // });
 
-        var zoomIn = polygonEight.on('click', function (e) {
-        	// sets the map's center lat/lon using the click event location and changes the zoom level
-        	map.setView(e.latlng, 9.5);
-        });
+        // var zoomIn = polygonEight.on('click', function (e) {
+        // 	// sets the map's center lat/lon using the click event location and changes the zoom level
+        // 	map.setView(e.latlng, 9.5);
+        // });
 
+
+        // EXAMPLE FOR COLORING USE IF/ELSE
+        // var layer = new L.GeoJSON(null, {
+        //     onEachFeature: function (feature, layer) {
+        //         layer.on('mouseover', function () {
+        //             this.setStyle({
+        //                 'fillColor': '#0000ff'
+        //             });
+        //         });
+        //         layer.on('mouseout', function () {
+        //             this.setStyle({
+        //                 'fillColor': '#ff0000'
+        //             });
+        //         });
+        //         layer.on('click', function () {
+        //             // Let's say you've got a property called url in your geojsonfeature:
+        //             window.location = feature.properties.url;
+        //         });
+        //     }
+        // }).addTo(map);
+
+        counter = 0
+
+        //populate this 
+
+        var arabicTextPopup = ["شباب امانة حدا يفيدنا ويتصل لخفر سواحل ليونانية لبلم عم يغرق",
+            "شباب في بلم عم يغرق ارجو مساعدتي بتبليغ خفر سواحل"
+        ]
+        var englishTextPopup = ["Amana guys, csn anyone help us and call the Greek Coast Guard becuase he is drowning?",
+            "Youth in the Balm uncle drown Please help me inform the Coast Guard"
+        ]
+        var date = ["October 15, 2015", "August 9, 2015"]
+
+
+        // make new data which gets added to a geojson object 
+        polygons.forEach(function (e) {
+            let prop = e.features[0].properties
+
+            prop["arabic"] = arabicTextPopup[counter]
+            prop["english"] = englishTextPopup[counter]
+            prop["date"] = englishTextPopup[counter]
+
+            counter = counter + 1
+        })
+
+        const geoData = L.geoJson(polygons, {
+            onEachFeature: function (feature, layer) {
+                let prop = feature.properties
+                let arabic = prop.arabic
+                let english = prop.english
+                let date = prop.date
+
+                layer.on("click", function (e) {
+                    layer.bindTooltip(`<b>Arabic ${arabic}</b><br>
+                            English: ${english}<br> 
+                            DATE: ${date}<br>`, {
+                        direction: 'right',
+                        sticky: true,
+                        offset: [20, 0],
+                        opacity: 1,
+                        className: 'leaflet-tooltip'
+                    })
+                })
+            },
+            style: function (feature) {
+                return {
+                    color: "red",
+                    weight: 2,
+                    fillOpacity: 0,
+                    opacity: 1,
+                    dashArray: "5, 5",
+
+                }
+            }
+        }).addTo(map);
+
+        var migrantImage = null
+
+
+        geoData.on("click", function (e) {
+            let imgBounds1 = [e.layer._bounds._northEast.lat, e.layer._bounds._northEast.lng]
+            let imgBounds2 = [e.layer._bounds._southWest.lat, e.layer._bounds._southWest.lng]
+            let imageBounds = [imgBounds1, imgBounds2]
+            let polyName = e.layer.feature.properties.name
+            let lat = e.latlng.lat
+            let lng = e.latlng.lng
+
+            if (map.hasLayer(migrantImage)) {
+                map.removeLayer(migrantImage);
+                map.flyTo([lat, lng], 10)
+                migrantImage = imageMaker(polyName, imageBounds).addTo(map);
+            } else {
+                map.flyTo([lat, lng], 10)
+                migrantImage = imageMaker(polyName, imageBounds).addTo(map);
+            }
+
+
+        })
+
+
+        var resetButton = document.querySelector('#toggle')
+        resetButton.addEventListener('click', function (e) {
+            if (map.hasLayer(migrantImage)) {
+                map.removeLayer(migrantImage);
+                map.flyTo(options.center, options.zoom)
+            }
+        })
+
+
+
+
+        var imageMaker = function (polyName, bounds) {
+            let path = `./images/map_images/${polyName}_image.jpg`
+
+            return L.imageOverlay(path, bounds)
+
+        }
+
+        geoData.on("mouseover", function (e) {
+            //console.log(e.layer.feature.properties)
+
+            //console.log()
+
+            //     e.setStyle({
+            //     color: 'yellow',
+            //     fillColor: 'yellow'
+            // });
+            // console.log(e.layer._bounds._northEast)
+            // console.log(e.layer._bounds._southWest)
+            // console.log(e.layer.feature)
+        })
+
+
+        // var imagePoly1 = './images/map_images/poly1_image.jpg' 
+        // var imagePoly1Bounds = [[37.2343609697498579,26.9019348692923010], [37.8168020411851344,27.3309463440307354]]
+
+        //  var test = L.imageOverlay(imagePoly1, imagePoly1Bounds)
+
+        //  test.addTo(map); 
+
+
+        // polygonThree.setStyle({
+        //     color: '#a5c9e2',
+        //     fillColor: '#a5c9e2'
+        // });
+
+        // polygonEight.setStyle({
+        //     color: '#a5c9e2',
+        //     fillColor: '#a5c9e2'
+        // });
 
 
         // MOUSEOVER CHANGE PERIMETER DASH ARRAY AND ADD POP UP 

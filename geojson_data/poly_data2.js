@@ -10,7 +10,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly1"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -41,7 +41,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly2"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -71,7 +71,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly3"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -101,7 +101,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly4"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -131,7 +131,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly5"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -161,7 +161,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly6"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -192,7 +192,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly7"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -223,7 +223,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly8"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -254,7 +254,7 @@ var polygonData2 = [{
         "features": [{
             "type": "Feature",
             "properties": {
-                "id": null
+                "name": "poly9"
             },
             "geometry": {
                 "type": "MultiPolygon",
