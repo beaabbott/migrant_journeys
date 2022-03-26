@@ -34,7 +34,7 @@
             letter-spacing: .04em;
             padding: 10px 15px;
             /* Add styles to match Leaflet UI elements */
-            background: rgba(256, 256, 256, .7);
+            background: rgba(256, 256, 256, .8);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
             border: 3px solid orange;
             border-radius: 5px;
@@ -64,7 +64,7 @@
             width: 450px;
             padding: 0 25px;
             /* Add styles to match Leaflet UI elements */
-            background: rgba(256, 256, 256, .7);
+            background: rgba(256, 256, 256, .8);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
             border: 3px solid orange;
             border-radius: 5px;
@@ -208,7 +208,7 @@
     <script>
         var options = {
             center: [37.7028262, 25.1490638],
-            zoom: 7,
+            zoom: 8,
             zoomControl: false
         }
         //console.log(routeData)
@@ -245,10 +245,6 @@
 
         var polygons = polygonData3
 
-
-
-        //on each feature - (use l.geojson) - add pop up, zoom to it, turn on image overlay
-        // add map and remove - look at documentation - you add image overlay and not add it to the map 
 
 
 
@@ -303,10 +299,10 @@
 
             if (map.hasLayer(migrantImage)) {
                 map.removeLayer(migrantImage);
-                map.flyTo([lat, lng], 10)
+                map.flyTo([lat, lng], 9)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
             } else {
-                map.flyTo([lat, lng], 10)
+                map.flyTo([lat, lng], 9)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
             }
 
