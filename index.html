@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Journeys</title>
+    <title>Migrant Mobile Maps</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -34,9 +34,9 @@
             letter-spacing: .04em;
             padding: 10px 15px;
             /* Add styles to match Leaflet UI elements */
-            background: rgba(256, 256, 256, .3);
+            background: rgba(256, 256, 256, .7);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgb(7, 7, 7);
+            border: 3px solid orange;
             border-radius: 5px;
             z-index: 800;
         }
@@ -64,9 +64,9 @@
             width: 450px;
             padding: 0 25px;
             /* Add styles to match Leaflet UI elements */
-            background: rgba(256, 256, 256, .3);
+            background: rgba(256, 256, 256, .7);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgb(3, 3, 3);
+            border: 5px solid orange;
             border-radius: 5px;
             z-index: 800;
         }
@@ -78,7 +78,7 @@
             padding: 15px 32px;
             background: rgba(255, 255, 255, 1);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-            border: 1px solid #ddd;
+            border: 1px solid orange;
             border-radius: 3px;
             z-index: 800;
             font-size: 20px;
@@ -119,13 +119,15 @@
         /* Leaflet popup styles */
         .leaflet-popup-content {
             font-family: 'Quicksand', sans-serif;
-            font-size: .1em;
+            font-size: 1.5em;
         }
 
         .leaflet-tooltip {
             position: right;
+            width: auto;
+            font-size: 1.7em;
             font-family: 'Quicksand', sans-serif;
-            padding: 25px;
+            padding: 15px;
             background-color: #fff;
             border: 1px solid #000;
             border-radius: 3px;
@@ -183,24 +185,30 @@
     <button id="toggle">Reset</button>
 
     <section id="about" class="show">
-        <h2>Migrant Journeys</h2>
-        <p>This is where I will explain what these images are and where they were found. </p>
-        <p>Here I will also describe a little about what happened in this region in 2015. And lastly, I will provide a
-            little bit of information one
-            this project, and some links for websites for those providing emergency assistance to people crossing this
-            route. </p>
-        <p>Map authored by me, Bea</p>
+        <h2>Migrant Mobile Maps - 2015</h2>
+        <p>These maps were made by migrants and their loved ones and posted to Facebook networks used to exchange information and seek urgent assistance. This particular
+            collection of maps correspond to journeys from Turkey to Greece in 2015, a year when nearly a million people,
+            primarily from Syria, arrived to Europe in search of refuge. As a result of violent
+            EU bordering practices, 2015 was also one of the deadliest years on record for migrants attempting to enter
+            Europe by way of the Eastern Mediterranean and Aegean Seas. I present here some found digital
+            artifacts of those journeys. </p>
+        <p>This is a prototype of a larger archival project I hope to someday complete of migrant maps/mapping
+            practices, related to my ongoing interest in imagining alternative ways to document and visualize the crisis
+            of migrant disappearance. </p>
+        <p>The text comes from the original Facebook posts where these images were found. [A note that these are
+            primarily English translations of the original Arabic, more accurate translations are forthcoming.] </p>
+        <p>Map authored by me, Bea Abbott</p>
     </section>
     <!-- Add Leaflet JS library. Check to make sure it is latest version. -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <!-- Load a Leaflet plugin to provide geolocation. Load this after Leaflet JS.-->
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.72.2/src/L.Control.Locate.min.js"></script>
-    <script src="geojson_data/poly_data2.js"></script>
+    <script src="geojson_data/poly_data_v3.js"></script>
 
     <script>
         var options = {
             center: [37.7028262, 25.1490638],
-            zoom: 7.5,
+            zoom: 8,
             zoomControl: false
         }
         //console.log(routeData)
@@ -235,63 +243,7 @@
         var tiles = L.tileLayer(basemap_url, basemap_attributes);
         map.addLayer(tiles);
 
-        var polygons = polygonData2
-
-
-        //THINGS I WANT TO DO: 
-        // (1) build a listener event so that when you clicks a polygon it 
-        // (A) recenters the map to that zoom in on that box (B) Fill the polygon with the image, and have the pop up appear
-        // (2) Have a recenter button on right hand side of page 
-        // (3) Have the lines of the polygon become solid when you mouse over (as to know which poly you are selecting)... not sure how to deal with overlapping polys...
-
-        // construct fit bounds, event listener, when you click it, pass bounds array from get bounds method 
-
-        // DRAW THE POLYGONS
-        // var polygonMaker = function (data, color) {
-        //     var layer = L.geoJson(data, {
-        //         style: function (feature) {
-        //             return {
-        //                 color: color,
-        //                 weight: 2,
-        //                 fillOpacity: 0,
-        //                 opacity: 1,
-        //                 dashArray: "5, 5",
-
-        //             }
-        //         }
-        //     }).addTo(map);
-        //     return layer
-        // }
-
-        // var polygonOne = polygonMaker(polygons[0], "red")
-        // var polygonTwo = polygonMaker(polygons[1], "blue")
-        // var polygonThree = polygonMaker(polygons[2], "green")
-        // var polygonFour = polygonMaker(polygons[3], "orange")
-        // var polygonFive = polygonMaker(polygons[4], "purple")
-        // var polygonSix = polygonMaker(polygons[5], "black")
-        // var polygonSeven = polygonMaker(polygons[6], "gray")
-        // var polygonEight = polygonMaker(polygons[7], "yellow")
-        // var polygonNine = polygonMaker(polygons[8], " #f8c143")
-
-
-        // BUILD CONTROL PANEL - I THINK I'LL END UP DELETING THIS BUT FOR NOW IT's USEFUL 
-
-        // var sourcesLayers = {
-        //     "<b style='font-size:1.3em;font-family:quicksand;color:red;text-shadow: 0px 0px 0px #333;'><br>POLY ONE</b>": polygonOne,
-        //     "<b style='font-size:1.3em;font-family:quicksand;color:blue;text-shadow: 0px 0px 0px #333;'><br>POLY TWO</b>": polygonTwo,
-        //     "<b style='font-size:1.3em;font-family:quicksand;color:green;text-shadow: 0px 0px 0px #333;'><br>POLY THREE</b>": polygonThree,
-        //     "<b style='font-size:1.3em;font-family:quicksand;color:orange;text-shadow: 0px 0px 0px #333;'><br>POLY FOUR</b>": polygonFour,
-        //     "<b style='font-size:1.3em;font-family:quicksand;color:purple;text-shadow: 0px 0px 0px #333;'><br>POLY FIVE</b>": polygonFive,
-        //     "<b style='font-size:1.3em;font-family:quicksand;color:gray;text-shadow: 0px 0px 0px #333;'><br>POLY SIX</b>": polygonSix
-        // }
-
-        // L.control.layers(null, sourcesLayers, {
-        //     collapsed: false
-        // }).addTo(map);
-
-
-        // IMAGE OVERLAY - okay so i can do this, but i need to figure out how to save an image as a variable, and how to define the bounds in coordinates
-        //then i'm going to have to figure out how to make it so the image appears when you click the polygon... and the popup is also associated with this click
+        var polygons = polygonData3
 
 
 
@@ -300,77 +252,18 @@
 
 
 
-
-
-
-
-        // ZOOM IN CODE -- THIS WORKS, BUT PROBABLY I SHOULD ADD THIS TO THE SAME FUNCTION THAT FILLS THE IMAGE AND BUILDS THE POP UP -- IF NOT, I SHOULD JUST RUN ARGUMENTS THROUGH THIS FUNCTION
-        // var zoomIn = polygonNine.on('click', function (e) {
-        // 	// sets the map's center lat/lon using the click event location and changes the zoom level
-        // 	map.setView(e.latlng, 10);
-        // });
-
-        // var zoomIn = polygonEight.on('click', function (e) {
-        // 	// sets the map's center lat/lon using the click event location and changes the zoom level
-        // 	map.setView(e.latlng, 9.5);
-        // });
-
-
-        // EXAMPLE FOR COLORING USE IF/ELSE
-        // var layer = new L.GeoJSON(null, {
-        //     onEachFeature: function (feature, layer) {
-        //         layer.on('mouseover', function () {
-        //             this.setStyle({
-        //                 'fillColor': '#0000ff'
-        //             });
-        //         });
-        //         layer.on('mouseout', function () {
-        //             this.setStyle({
-        //                 'fillColor': '#ff0000'
-        //             });
-        //         });
-        //         layer.on('click', function () {
-        //             // Let's say you've got a property called url in your geojsonfeature:
-        //             window.location = feature.properties.url;
-        //         });
-        //     }
-        // }).addTo(map);
-
-        counter = 0
-
-        //populate this 
-
-        var arabicTextPopup = ["شباب امانة حدا يفيدنا ويتصل لخفر سواحل ليونانية لبلم عم يغرق",
-            "شباب في بلم عم يغرق ارجو مساعدتي بتبليغ خفر سواحل"
-        ]
-        var englishTextPopup = ["Amana guys, csn anyone help us and call the Greek Coast Guard becuase he is drowning?",
-            "Youth in the Balm uncle drown Please help me inform the Coast Guard"
-        ]
-        var date = ["October 15, 2015", "August 9, 2015"]
-
-
-        // make new data which gets added to a geojson object 
-        polygons.forEach(function (e) {
-            let prop = e.features[0].properties
-
-            prop["arabic"] = arabicTextPopup[counter]
-            prop["english"] = englishTextPopup[counter]
-            prop["date"] = englishTextPopup[counter]
-
-            counter = counter + 1
-        })
-
+        //BUILD POLYGONS FROM GEOJSON, POPULATE TOOL TIP W. DATA 
         const geoData = L.geoJson(polygons, {
             onEachFeature: function (feature, layer) {
-                let prop = feature.properties
-                let arabic = prop.arabic
-                let english = prop.english
-                let date = prop.date
+
+                let arabic = feature.properties.arabic
+                let english = feature.properties.english
+                let date = feature.properties.date
 
                 layer.on("click", function (e) {
-                    layer.bindTooltip(`<b>Arabic ${arabic}</b><br>
-                            English: ${english}<br> 
-                            DATE: ${date}<br>`, {
+                    layer.bindTooltip(`<b>${arabic}</b></br>
+                            <br>${english}</br> 
+                            <br>${date}</br>`, {
                         direction: 'right',
                         sticky: true,
                         offset: [20, 0],
@@ -381,9 +274,9 @@
             },
             style: function (feature) {
                 return {
-                    color: "red",
-                    weight: 2,
-                    fillOpacity: 0,
+                    color: "orange",
+                    weight: 3,
+                    fillOpacity: 0.05,
                     opacity: 1,
                     dashArray: "5, 5",
 
@@ -393,14 +286,20 @@
 
         var migrantImage = null
 
+        //THIS ADDS THE IMAGE OVERLAY AND TAKES IT AWAY IF YOU CLICK A DIFFERENT POLYGON 
+        //[ofir helped me come up with this migrantImage = null way to make it go away when you click another polygon, 
+        //but I think the other, probably simplier way would be to build the poly gones with the images, but have them be invisible, and then have them appear when you click]
+
+        //i tried to figure out a way where i could personalize the flyTo zoom level (by putting different zoom levels for each and adding them as a key value pair in the geojson data) 
+        //but i couldn't get it to work. I also tried the to figure out the get bounds method but failed. Anyway, what is here now in terms of zooming to the image when clicked is not great. 
+        var migrantImage = null
 
         geoData.on("click", function (e) {
-            let imgBounds1 = [e.layer._bounds._northEast.lat, e.layer._bounds._northEast.lng]
-            let imgBounds2 = [e.layer._bounds._southWest.lat, e.layer._bounds._southWest.lng]
-            let imageBounds = [imgBounds1, imgBounds2]
+            let imageBounds = e.layer.feature.properties.extent
             let polyName = e.layer.feature.properties.name
             let lat = e.latlng.lat
             let lng = e.latlng.lng
+            console.log(imageBounds)
 
             if (map.hasLayer(migrantImage)) {
                 map.removeLayer(migrantImage);
@@ -411,9 +310,9 @@
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
             }
 
-
         })
 
+        //RESET BOTTON 
 
         var resetButton = document.querySelector('#toggle')
         resetButton.addEventListener('click', function (e) {
@@ -423,307 +322,12 @@
             }
         })
 
-
-
-
         var imageMaker = function (polyName, bounds) {
             let path = `./images/map_images/${polyName}_image.jpg`
 
             return L.imageOverlay(path, bounds)
 
         }
-
-        geoData.on("mouseover", function (e) {
-            //console.log(e.layer.feature.properties)
-
-            //console.log()
-
-            //     e.setStyle({
-            //     color: 'yellow',
-            //     fillColor: 'yellow'
-            // });
-            // console.log(e.layer._bounds._northEast)
-            // console.log(e.layer._bounds._southWest)
-            // console.log(e.layer.feature)
-        })
-
-
-        // var imagePoly1 = './images/map_images/poly1_image.jpg' 
-        // var imagePoly1Bounds = [[37.2343609697498579,26.9019348692923010], [37.8168020411851344,27.3309463440307354]]
-
-        //  var test = L.imageOverlay(imagePoly1, imagePoly1Bounds)
-
-        //  test.addTo(map); 
-
-
-        // polygonThree.setStyle({
-        //     color: '#a5c9e2',
-        //     fillColor: '#a5c9e2'
-        // });
-
-        // polygonEight.setStyle({
-        //     color: '#a5c9e2',
-        //     fillColor: '#a5c9e2'
-        // });
-
-
-        // MOUSEOVER CHANGE PERIMETER DASH ARRAY AND ADD POP UP 
-
-        // var labelpopupMaker = function (data, color) {
-        //     var layer = L.geoJson(data, {
-
-        //         onEachFeature: function (feature, layer) {
-        //             layer.on('mouseover', function (e) {
-        //                 e.target.setStyle({
-        //                     color: color,
-        //                     weight: 7,
-        //                     opacity: 1,
-
-        //                 })
-        //                 // label = 
-        //                 layer.bindTooltip(`<b>TEXT ASSOCIATED WITH ${feature.geometry.polyName}</b><br>
-        //                     NAME<br> 
-        //                     DATE POSTED<br>`, {
-        //                     direction: 'right',
-        //                     sticky: true,
-        //                     offset: [20, 0],
-        //                     opacity: 1,
-        //                     className: 'leaflet-tooltip'
-        //                 });
-
-        //             });
-
-        //             layer.on('mouseout', function (e) {
-        //                 e.target.setStyle({
-        //                     color: color,
-        //                     weight: 3,
-        //                     opacity: .7,
-        //                     dashArray: "5, 5"
-
-        //                 })
-        //             });
-        //         }
-        //     }).addTo(map);
-        //     return layer
-        // }
-
-        // labelpopupMaker(polygons[0], "red")
-        // labelpopupMaker(polygons[1], "blue")
-        // labelpopupMaker(polygons[2], "green")
-        // labelpopupMaker(polygons[3], "orange")
-        // labelpopupMaker(polygons[4], "purple")
-
-
-
-        //BASIC FUNCTION FORMAT - HAS TO RETURN SOMETHING 
-
-        //  var polygoneMaker = function (data) {
-        //         var layer = L.geoJson(data).addTo(map);
-
-        //         return layer
-        //     }
-
-
-
-
-
-
-        //LONG VERSION - KEEP FOR BACK UP BECAUSE IT DOES WORK! 
-
-        // var polygonOne = L.geoJson(polygons, {
-
-        //     filter: function (feature) {
-        //         if (feature.geometry.polyName == "polygon1") {
-        //             return feature;
-        //         }
-        //     },
-        //     style: function (feature) {
-
-        //         return {
-        //             color: "red",
-        //             weight: 3,
-        //             opacity: .7,
-        //             dashArray: "5, 5"
-        //         }
-        //     },
-        //     onEachFeature: function (feature, layer) {
-        //         layer.on('mouseover', function (e) {
-        //             e.target.setStyle({
-        //                 color: "red",
-        //                 weight: 7,
-        //                 opacity: 1,
-
-        //             })
-        //             // label = 
-        //             layer.bindTooltip(`<b>TEXT ASSOCIATED WITH ${feature.geometry.polyName}</b><br>
-        //                     NAME<br> 
-        //                     DATE POSTED<br>`, {
-        //                 direction: 'right',
-        //                 sticky: true,
-        //                 offset: [20, 0],
-        //                 opacity: 1,
-        //                 className: 'leaflet-tooltip'
-        //             });
-
-        //         });
-
-        //         layer.on('mouseout', function (e) {
-        //             e.target.setStyle({
-        //                 color: "red",
-        //                 weight: 3,
-        //                 opacity: .7,
-        //                 dashArray: "5, 5"
-
-        //             })
-        //         });
-        //     }
-
-        // }).addTo(map);
-
-        // var polygonTwo = L.geoJson(polygons, {
-
-        //     filter: function (feature) {
-        //         if (feature.geometry.polyName == "polygon2") {
-        //             return feature;
-        //         }
-        //     },
-        //     style: function (feature) {
-
-        //         return {
-        //             color: "blue",
-        //             weight: 3,
-        //             opacity: .7,
-        //             dashArray: "5, 5"
-        //         }
-        //     }
-
-        // }).addTo(map);
-
-
-        // var polygonThree = L.geoJson(polygons, {
-
-        //     filter: function (feature) {
-        //         if (feature.geometry.polyName == "polygon3") {
-        //             return feature;
-        //         }
-        //     },
-        //     style: function (feature) {
-
-        //         return {
-        //             color: "green",
-        //             weight: 3,
-        //             opacity: .7,
-        //             dashArray: "5, 5"
-        //         }
-        //     }
-
-        // }).addTo(map);
-
-
-        // var polygonFour = L.geoJson(polygons, {
-
-        //     filter: function (feature) {
-        //         if (feature.geometry.polyName == "polygon4") {
-        //             return feature;
-        //         }
-        //     },
-        //     style: function (feature) {
-
-        //         return {
-        //             color: "orange",
-        //             weight: 3,
-        //             opacity: .7,
-        //             dashArray: "5, 5"
-        //         }
-        //     }
-
-        // }).addTo(map);
-
-        // var polygonFive = L.geoJson(polygons, {
-
-        //     filter: function (feature) {
-        //         if (feature.geometry.polyName == "polygon5") {
-        //             return feature;
-        //         }
-        //     },
-        //     style: function (feature) {
-
-        //         return {
-        //             color: "purple",
-        //             weight: 3,
-        //             opacity: .7,
-        //             dashArray: "5, 5"
-        //         }
-        //     }
-
-        // }).addTo(map);
-
-
-
-
-        // //    
-        // var polygoneMaker = function (data) {
-        //     var layer = L.geoJson(data).addTo(map);
-
-        //     return layer
-        // }
-
-
-
-        // polygoneMaker(polygons)
-        // var myStops = L.geoJson(routeData, {
-
-        // 	filter: function (feature) {
-        // 		if (feature.geometry.type == "Point") {
-        // 			return feature;
-        // 		}
-        // 	},
-        // 	onEachFeature: function (feature, layer) {
-
-        // 		layer.bindPopup(feature.properties.name);
-        // 	},
-
-        // }).addTo(map);
-
-        // // Create empty latLng bounds for zooming/centering map dynamically
-        // const bounds = L.latLngBounds();   
-
-        // const myLocations = [myRoute, myStops];
-
-        // for (i of myLocations) {
-        // 	bounds.extend(i.getBounds());
-        // }
-
-        // map.fitBounds(bounds, {
-        // 	padding: [50, 50],
-        // 	animate: false
-        // }
-        // ).panBy([20, 0], {
-        // 	animate: false
-        // });
-
-
-
-        // var zoomIn = myStops.on('click', function (e) {
-        // 	// sets the map's center lat/lon using the click event location and changes the zoom level
-        // 	map.setView(e.latlng, 18);
-        // });
-
-        // const button = document.getElementById('toggle');
-        // const about = document.getElementById('about');
-        // const title = document.getElementById('title');
-
-        // button.addEventListener('click', function () {
-        // 	// if (map.hasLayer(myStops)) {
-        // 	// 	map.removeLayer(myStops);
-        // 	// } else {
-        // 	// 	map.addLayer(myStops);
-        // 	// }
-        // 	title.classList.toggle('hide');
-        // 	about.classList.toggle('hide');
-        // 	button.innerHTML = button.innerHTML === 'Hide' ? 'Show' : 'Hide';
-
-        // });
     </script>
 
 </body>
