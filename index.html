@@ -122,9 +122,10 @@
             font-size: 1.5em;
         }
 
-        .leaflet-tooltip {
+        .popup-content {
             position: right;
-            width: auto;
+            width: 300px;
+            overflow: scroll;
             font-size: 12px;
             font-family: 'Quicksand', sans-serif;
             padding: 15px;
@@ -132,9 +133,15 @@
             border: 1px solid #000;
             border-radius: 3px;
             /*color: #222;*/
-            white-space: nowrap;
+            /* white-space: nowrap; */
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         }
+
+        .leaflet-popup-content div {
+                width: 100%;
+                overflow: scroll;
+                height: 300px;
+            }
 
 
 
@@ -161,6 +168,8 @@
                 font-family: 'Quicksand', sans-serif;
                 font-size: 0.9em;
             }
+
+           
         }
 
         /* Don't display info block when window is very small */
@@ -256,16 +265,20 @@
                 let english = feature.properties.english
                 let date = feature.properties.date
 
-                layer.on("click", function (e) {
-                    layer.bindTooltip(`<b>${arabic}</b></br>
+                layer.bindPopup(`<div><b>${arabic}</b></br>
                             <br>${english}</br> 
-                            <br>${date}</br>`, {
+                            <br>${date}</br></div>`, {
                         direction: 'right',
                         sticky: true,
                         offset: [20, 0],
                         opacity: 1,
-                        className: 'leaflet-tooltip'
+                        className: 'popup-content'
                     })
+                    
+                layer.on("click", function (e) {
+                    
+
+                    // layer.openPopup();
                 })
             },
             style: function (feature) {
@@ -288,7 +301,7 @@
 
         //i tried to figure out a way where i could personalize the flyTo zoom level (by putting different zoom levels for each and adding them as a key value pair in the geojson data) 
         //but i couldn't get it to work. I also tried the to figure out the get bounds method but failed. Anyway, what is here now in terms of zooming to the image when clicked is not great. 
-        var migrantImage = null
+        // var migrantImage = null
         const about = document.getElementById('about');
 
         geoData.on("click", function (e) {
@@ -303,8 +316,9 @@
                 map.removeLayer(migrantImage);
                 map.flyToBounds(imageBounds)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
+                
             } else {
-                map.flyTo([lat, lng], 9)
+                map.flyToBounds(imageBounds) // map.flyTo([lat, lng], 9)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
             }
 
