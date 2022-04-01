@@ -122,19 +122,27 @@
             font-size: 1.5em;
         }
 
-        .leaflet-tooltip {
+        .popup-content {
             position: right;
-            width: auto;
+            width: 300px;
+            height: 300px;
+            /* overflow: scroll; */
             font-size: 12px;
             font-family: 'Quicksand', sans-serif;
-            padding: 15px;
-            background-color: #fff;
+            /* padding: 15px; */
+            /* background-color: #fff;
             border: 1px solid #000;
-            border-radius: 3px;
+            border-radius: 3px; */
             /*color: #222;*/
-            white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            /* white-space: nowrap; */
+            /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); */
         }
+
+        .leaflet-popup-content div {
+                width: 100%;
+                overflow: scroll;
+                height: 300px;
+            }
 
 
 
@@ -161,6 +169,8 @@
                 font-family: 'Quicksand', sans-serif;
                 font-size: 0.9em;
             }
+
+           
         }
 
         /* Don't display info block when window is very small */
@@ -256,17 +266,21 @@
                 let english = feature.properties.english
                 let date = feature.properties.date
 
-                layer.on("click", function (e) {
-                    layer.bindTooltip(`<b>${arabic}</b></br>
-                            <br>${english}</br> 
-                            <br>${date}</br>`, {
-                        direction: 'right',
-                        sticky: true,
-                        offset: [20, 0],
-                        opacity: 1,
-                        className: 'leaflet-tooltip'
-                    })
-                })
+                // layer.bindPopup(`<div><b>${arabic}</b></br>
+                //             <br>${english}</br> 
+                //             <br>${date}</br></div>`, {
+                //         direction: 'right',
+                //         sticky: true,
+                //         offset: [20, 0],
+                //         opacity: 1,
+                //         className: 'popup-content'
+                //     })
+                    
+                // layer.on("click", function (e) {
+                    
+
+                //     // layer.openPopup();
+                // })
             },
             style: function (feature) {
                 return {
@@ -288,9 +302,11 @@
 
         //i tried to figure out a way where i could personalize the flyTo zoom level (by putting different zoom levels for each and adding them as a key value pair in the geojson data) 
         //but i couldn't get it to work. I also tried the to figure out the get bounds method but failed. Anyway, what is here now in terms of zooming to the image when clicked is not great. 
-        var migrantImage = null
+        // var migrantImage = null
+        const about = document.getElementById('about');
 
         geoData.on("click", function (e) {
+            about.className ='hide';
             let imageBounds = e.layer.feature.properties.extent
             let polyName = e.layer.feature.properties.name
             let lat = e.latlng.lat
@@ -299,12 +315,28 @@
 
             if (map.hasLayer(migrantImage)) {
                 map.removeLayer(migrantImage);
-                map.flyTo([lat, lng], 9)
+                map.flyToBounds(imageBounds)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
+                
             } else {
-                map.flyTo([lat, lng], 9)
+                map.flyToBounds(imageBounds) // map.flyTo([lat, lng], 9)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
             }
+
+            const props = e.layer.feature.properties
+            const arabic = props.arabic
+            const english = props.english
+            const date = props.date
+
+            const popup = `<div><b>${arabic}</b></br>
+                            <br>${english}</br> 
+                            <br>${date}</br></div>`
+            map.once('moveend', function () {
+                e.layer.bindPopup(popup, {
+                    className: 'popup-content',
+                })
+                e.layer.openPopup();
+            });  
 
         })
 
@@ -312,6 +344,8 @@
 
         var resetButton = document.querySelector('#toggle')
         resetButton.addEventListener('click', function (e) {
+            about.className ='show';
+            map.closePopup();
             if (map.hasLayer(migrantImage)) {
                 map.removeLayer(migrantImage);
                 map.flyTo(options.center, options.zoom)
