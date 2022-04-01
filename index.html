@@ -289,8 +289,10 @@
         //i tried to figure out a way where i could personalize the flyTo zoom level (by putting different zoom levels for each and adding them as a key value pair in the geojson data) 
         //but i couldn't get it to work. I also tried the to figure out the get bounds method but failed. Anyway, what is here now in terms of zooming to the image when clicked is not great. 
         var migrantImage = null
+        const about = document.getElementById('about');
 
         geoData.on("click", function (e) {
+            about.className ='hide';
             let imageBounds = e.layer.feature.properties.extent
             let polyName = e.layer.feature.properties.name
             let lat = e.latlng.lat
@@ -299,7 +301,7 @@
 
             if (map.hasLayer(migrantImage)) {
                 map.removeLayer(migrantImage);
-                map.flyTo([lat, lng], 9)
+                map.flyToBounds(imageBounds)
                 migrantImage = imageMaker(polyName, imageBounds).addTo(map);
             } else {
                 map.flyTo([lat, lng], 9)
@@ -312,6 +314,7 @@
 
         var resetButton = document.querySelector('#toggle')
         resetButton.addEventListener('click', function (e) {
+            about.className ='show';
             if (map.hasLayer(migrantImage)) {
                 map.removeLayer(migrantImage);
                 map.flyTo(options.center, options.zoom)
